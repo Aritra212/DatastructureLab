@@ -19,6 +19,7 @@ Nodeptr DeleteEnd(Nodeptr);     //Delete a node from the End of previously creat
 Nodeptr DeleteAt(Nodeptr);      //Delete a node from a specific position
 void Display(Nodeptr);          //Display the Linked List created by the user
 Nodeptr ReverseList(Nodeptr);   //Reverse the linked list
+Nodeptr Concat(Nodeptr);        //Concatenate Two Linked Lists
 
 int main(){
     int n;
@@ -32,6 +33,7 @@ int main(){
         printf("\nEnter '3' for Delete Operation");
         printf("\nEnter '4' to Display Linked List");
         printf("\nEnter '5' to Reverse The Linked List");
+        printf("\nEnter '6' to Concate Two Linked Lists");
 
         printf("\nEntr your choice:: ");
         scanf("%d",&n);
@@ -80,6 +82,8 @@ int main(){
             case 4: Display(start);
             break;
             case 5: start= ReverseList(start);
+            break;
+            case '6': start= Concat(start);
             break;
             case 0: exit(0);
             default: printf("Invalid Choice");
@@ -317,4 +321,36 @@ Nodeptr ReverseList(Nodeptr start){
         Display(start);
     }
     return start;
+}
+
+////////////////////////////////////////////
+////////        Concatenation       ///////
+//////////////////////////////////////////
+
+Nodeptr Concat(Nodeptr l1){
+    Nodeptr l2, ptr;
+
+    if(l1== NULL){
+        printf("\n------- Insertion for List 1 --------\n");
+        l1= CreateList();
+    }
+    printf("\n------- Insertion for List 2 ---------\n");
+    l2= CreateList();
+
+    // Perform Concatenation
+    printf("\n-------- After Concatenation ---------\n");
+    if(l1!=NULL){
+        if(l2!=NULL){
+            ptr= l1;
+            while(ptr->next!=NULL){
+                ptr= ptr->next;
+            }
+            ptr->next=l2;
+        }
+    }
+    else{
+        l1=l2;
+    }
+    Display(l1);
+    return l1;
 }
