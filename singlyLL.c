@@ -20,6 +20,7 @@ Nodeptr DeleteAt(Nodeptr);      //Delete a node from a specific position
 void Display(Nodeptr);          //Display the Linked List created by the user
 Nodeptr ReverseList(Nodeptr);   //Reverse the linked list
 Nodeptr Concat(Nodeptr);        //Concatenate Two Linked Lists
+Nodeptr SortList(Nodeptr);
 
 int main(){
     int n;
@@ -34,6 +35,7 @@ int main(){
         printf("\nEnter '4' to Display Linked List");
         printf("\nEnter '5' to Reverse The Linked List");
         printf("\nEnter '6' to Concate Two Linked Lists");
+        printf("\nEnter '7' to Sort the list");
 
         printf("\nEntr your choice:: ");
         scanf("%d",&n);
@@ -83,7 +85,9 @@ int main(){
             break;
             case 5: start= ReverseList(start);
             break;
-            case '6': start= Concat(start);
+            case 6: start= Concat(start);
+            break;
+            case 7: start= SortList(start);
             break;
             case 0: exit(0);
             default: printf("Invalid Choice");
@@ -323,6 +327,32 @@ Nodeptr ReverseList(Nodeptr start){
     return start;
 }
 
+////////////////////////////////////////////
+//////////        Sorting       ///////////
+//////////////////////////////////////////
+
+Nodeptr SortList(Nodeptr start){
+    Nodeptr current= start, ptr=NULL;
+    int temp;
+    
+    if(start!=NULL){
+        while(current != NULL){
+            ptr= current->next;
+            while(ptr!=NULL){
+                if(current->data >ptr->data){
+                    temp= current->data;
+                    current->data= ptr->data;
+                    ptr->data= temp;
+                }
+                ptr=ptr->next;
+            }
+            current= current->next;
+        }
+    }
+    
+    Display(start);
+    return start;
+}
 ////////////////////////////////////////////
 ////////        Concatenation       ///////
 //////////////////////////////////////////
