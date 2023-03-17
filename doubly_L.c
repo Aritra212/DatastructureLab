@@ -1,4 +1,4 @@
-// Doubbly Link list Master Program
+// Doubly Link list Master Program
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -178,7 +178,7 @@ Nodeptr InsertAt(Nodeptr start){
             }
             ptr=ptr->next;
         }
-        if(ptr!=NULL){
+        if(ptr!=NULL && n!=0){
             temp= CreateNode();
             printf("\nEnter Data:: ");
             scanf("%d",&temp->data);
