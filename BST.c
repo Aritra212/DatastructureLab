@@ -13,6 +13,8 @@ typedef struct Node * Nodeptr;
 Nodeptr CreateNode(int);
 Nodeptr CreateBST();
 Nodeptr InsertBST(Nodeptr,int);
+Nodeptr DeleteBST(Nodeptr, int);
+Nodeptr FindSmallest(Nodeptr, int);
 void Preorder(Nodeptr);
 void Inorder(Nodeptr);
 void Postorder(Nodeptr);
@@ -42,6 +44,11 @@ int main(){
                 scanf("%d",&d);
                 root= InsertBST(root,d);
             break;
+	    case 3: 
+            	printf("\nEnter Data: "); 
+                scanf("%d",&d);
+		root= DeleteBST(root, d);
+            break;
             case 4: Preorder(root);
             break;
             case 5: Inorder(root);
@@ -62,7 +69,7 @@ Nodeptr CreateNode(int d){
     addr->data= d;
     return addr;
 }
-
+// Create BST
 Nodeptr CreateBST(){
 	Nodeptr root=NULL;
 	int n,d;
@@ -78,6 +85,7 @@ Nodeptr CreateBST(){
 	printf("BST Created Sucessfully");
 	return root;
 }
+// Insert Node
 Nodeptr InsertBST(Nodeptr root, int d){
     if(root==NULL){
         root= CreateNode(d);
@@ -91,6 +99,52 @@ Nodeptr InsertBST(Nodeptr root, int d){
     return root;
 }
 
+// Delete Node
+Nodeptr DeleteBST(Nodeptr root, int d){
+	if(root==NULL){
+		return root;
+	}
+	//searching
+	if(d < root->data){
+		root->left= DeleteBST(root->left, d);
+	}
+	else if(d > root->data){
+		root->right= DeleteBST(root->right, d);
+	}
+	//delete
+	else{
+		Nodeptr temp;
+		//node have only one child or leaf node
+		if(root->left == NULL){
+			temp= root->right;
+			printf("\n%d deleted",root->data);
+			free(root);
+			return temp;
+		}
+		else if(root->right == NULL){
+			temp= root->left;
+			printf("\n%d deleted",root->data);
+			free(root);
+			return temp;
+		}
+		// node have two children
+		else{
+			temp= FindSmallest(root->right, d); //find the smallest element from the right sub tree
+			root->data= temp->data;
+			root->right= DeleteBST(root->right, temp->data);
+		}
+	}
+	return root;
+}
+
+Nodeptr FindSmallest(Nodeptr root, int d){
+	while(root != NULL && root->left !=NULL){
+		root= root->left;
+	}
+	return root;
+}
+
+//Display
 void Preorder(Nodeptr root){
     if(root==NULL){
         return;
