@@ -117,13 +117,13 @@ Nodeptr DeleteBST(Nodeptr root, int d){
 		//node have only one child or leaf node
 		if(root->left == NULL){
 			temp= root->right;
-			printf("\n%d deleted",root->data);
+			//printf("\n%d deleted",root->data);
 			free(root);
 			return temp;
 		}
 		else if(root->right == NULL){
 			temp= root->left;
-			printf("\n%d deleted",root->data);
+			//printf("\n%d deleted",root->data);
 			free(root);
 			return temp;
 		}
