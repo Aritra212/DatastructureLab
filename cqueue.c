@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-#define MAX 2
+#define MAX 5
 
 int queue[MAX], front= -1, rear= -1, item;
 
