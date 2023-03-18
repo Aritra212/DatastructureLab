@@ -32,7 +32,6 @@ void dequeue(){
         	front= (front+1)%MAX;
         printf("%d deleted.",item);
     }
-
 }
 void display(){
     int i=front,c;
