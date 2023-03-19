@@ -41,7 +41,7 @@ int main(){
         scanf("%d",&n);
 
         switch(n){
-            case 1: start=CreateList();
+            case 1: start=CreateList();Display(start);
             break;
             case 2:
                 printf("\n=======================================");
@@ -53,11 +53,11 @@ int main(){
                 scanf("%d",&n);
                 switch(n){
                     case 0: break;
-                    case 1: start= InsertBeg(start);
+                    case 1: start= InsertBeg(start);Display(start);
                     break;
-                    case 2: start= InsertEnd(start);
+                    case 2: start= InsertEnd(start);Display(start);
                     break;
-                    case 3: start= InsertAt(start);
+                    case 3: start= InsertAt(start);Display(start);
                     break;
                     default: printf("Invalid Choice");
                 }
@@ -72,11 +72,11 @@ int main(){
                 scanf("%d",&n);
                 switch(n){
                     case 0: break;
-                    case 1: start= DeleteBeg(start);
+                    case 1: start= DeleteBeg(start);Display(start);
                     break;
-                    case 2: start= DeleteEnd(start);
+                    case 2: start= DeleteEnd(start);Display(start);
                     break;
-                    case 3: start= DeleteAt(start);
+                    case 3: start= DeleteAt(start);Display(start);
                     break;
                     default: printf("Invalid Choice");
                 }
@@ -145,7 +145,7 @@ Nodeptr InsertBeg(Nodeptr start){
         temp->next= start;
     }
     start= temp;
-    printf("\n%d Inserted sucessfully enter '3' to display",temp->data);
+    printf("\n%d Inserted sucessfully",temp->data);
     return start;
 }
 
@@ -173,7 +173,7 @@ Nodeptr InsertEnd(Nodeptr start){
 }
 Nodeptr InsertAt(Nodeptr start){
     int n,i;
-    Nodeptr ptr= start, temp;
+    Nodeptr ptr= start, temp, preptr=NULL;
 
     printf("\n=======================================");
     if(ptr==NULL){
@@ -182,20 +182,24 @@ Nodeptr InsertAt(Nodeptr start){
     else{
         printf("\nEnter Position: ");
         scanf("%d",&n);
-        for(i=1;i<n-1;i++){
+        for(i=1;i<n;i++){
             if(ptr==NULL){
                 break;
             }
+            preptr= ptr;
             ptr=ptr->next;
         }
-        if(ptr!=NULL){
+        if(ptr!=NULL && n!=0){
             temp= CreateNode();
             printf("\nEnter Data:: ");
-            scanf("%d",&n);
-            temp->data= n;
-
-            temp->next= ptr->next;
-            ptr->next= temp;
+            scanf("%d",&temp->data);
+            temp->next= ptr;
+            if(preptr!=NULL){
+            	preptr->next= temp;
+			}
+            if(ptr==start){
+            	start= temp;
+			}
             printf("\n%d Inserted",temp->data);
         }
         else{
@@ -248,7 +252,7 @@ Nodeptr DeleteEnd(Nodeptr start){
 }
 Nodeptr DeleteAt(Nodeptr start){
     int n,i;
-    Nodeptr ptr=start, temp;
+    Nodeptr ptr=start, temp, preptr=NULL;
 
     printf("\n=======================================");
     if(ptr==NULL){
@@ -257,26 +261,26 @@ Nodeptr DeleteAt(Nodeptr start){
     else{
         printf("\nEnter Position: ");
         scanf("%d",&n);
-        for(i=2;i<n;i++){
-            ptr=ptr->next;
+        for(i=1;i<n;i++){
             if(ptr==NULL){
-                printf("\nInvalid Position");
                 break;
             }
+            preptr= ptr;
+            ptr=ptr->next;
         }
-        if(n==1){
-            temp=start;
-            start= start->next;
-            printf("\n%d Deleted",temp->data);
-            free(temp);
+        if(ptr!=NULL && n!=0){
+        	if(preptr!=NULL){
+        		preptr->next= ptr->next;
+			}
+			else{
+				start= ptr->next;
+			}
+			printf("\n%d deleted",ptr->data);
+			free(ptr);
         }
-        else if( ptr!=NULL && ptr->next!=NULL){
-            printf("%d ",ptr->data);
-            temp= ptr->next;
-            ptr->next= ptr->next->next;
-            printf("\n%d Deleted",temp->data);
-            free(temp);
-        }
+        else{
+        	printf("\nInvalid Position");
+		}
     }
     return start;
 }
